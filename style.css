@@ -1,0 +1,244 @@
+:root {
+    --sage-green: #d3dfc1;
+    --dark-green: #4a5d38;
+    --soft-pink: #eebfbf;
+    --off-white: #faf9f6;
+    --border-color: #d1d5db;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--sage-green);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* We moved the image to the ::before element below! */
+}
+
+/* This creates a fixed background layer just for the flowers */
+body::before {
+    content: "";
+    position: fixed; 
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    
+    background-image: url("floral.png");
+    background-size: 300px; /* A much safer size to prevent clipping */
+    background-repeat: repeat; /* A clean, even grid */
+    background-position: center;
+    
+    /* Fades the pattern into the green background (0.1 is very light, 1.0 is full color) */
+    opacity: 0.4; 
+    
+    z-index: -1; /* Ensures the flowers stay permanently behind your form */
+}
+
+.rsvp-container {
+    background-color: var(--off-white);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .rsvp-container {
+        flex-direction: row;
+    }
+
+    .image-container,
+    .form-container {
+        flex: 1;
+    }
+}
+
+.engagement-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.form-container {
+    padding: 40px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* --- NEW MINIMAL HEADER STYLES --- */
+.minimal-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.minimal-header h1 {
+    color: var(--dark-green);
+    margin: 0;
+    font-family: 'Georgia', serif;
+    font-size: 32px;
+}
+
+.subtitle {
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    margin: 5px 0 20px 0;
+}
+
+.quick-info {
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 0;
+    margin-top: 20px;
+}
+
+.quick-info p {
+    margin: 4px 0;
+    color: #444;
+    font-size: 14px;
+}
+
+.highlight-deadline {
+    font-weight: 600;
+    color: var(--dark-green) !important;
+}
+
+/* --------------------------------- */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--dark-green);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 15px;
+    background-color: #fff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--dark-green);
+    box-shadow: 0 0 0 3px rgba(74, 93, 56, 0.2);
+}
+
+.small-contact {
+    font-size: 12px;
+    color: #777;
+    margin-top: 8px;
+    line-height: 1.4;
+}
+
+.guests-section {
+    margin: 25px 0;
+    padding: 20px 0;
+    border-top: 1px dashed var(--border-color);
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.guests-section h3 {
+    margin: 0 0 5px 0;
+    color: var(--dark-green);
+}
+
+.guest-subtitle {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.guest-card {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.remove-guest {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #dc2626;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0;
+}
+
+.remove-guest:hover {
+    text-decoration: underline;
+}
+
+button {
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.primary-button {
+    background-color: var(--dark-green);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.primary-button:hover {
+    background-color: #38462a;
+}
+
+.secondary-button {
+    background-color: transparent;
+    color: var(--dark-green);
+    border: 2px solid var(--dark-green);
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.secondary-button:hover {
+    background-color: var(--sage-green);
+}
+
+.hidden {
+    display: none !important;
+}
+
+#successMessage {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: var(--sage-green);
+    color: var(--dark-green);
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid var(--dark-green);
+}
