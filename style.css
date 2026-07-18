@@ -66,8 +66,10 @@ body::before {
 
 .form-container {
     padding: 40px;
+    height: 600px;
     max-height: 90vh;
     overflow-y: auto;
+    scrollbar-gutter: stable; /* Prevents layout shift when scrollbar appears */
 }
 
 /* --- NEW MINIMAL HEADER STYLES --- */
