@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (response.ok) {
                     form.style.display = 'none';
                     successMessage.classList.remove('hidden');
+                    document.querySelector('.form-container').style.height = 'auto';
                 } else {
                     throw new Error("Network response was not ok.");
                 }
