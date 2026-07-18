@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <option value="Chicken">Spiced Chicken Breast - Cumin & Coriander Dry Cure, Heirloom Carrots, Confit Fingerling Potatoes, Rich Chicken Jus</option>
                     <option value="Salmon">Atlantic Salmon - Crispy Skin Roasted, Yucca & Broccolini Summer Hash, Coconut Mustard Sauce</option>
                     <option value="Vegetarian">*Vegetarian Option* - Crispy Potato Rosti - Curried Potato Cream, Eggplant & Pepper Caponata, Balsamic & Grenadine Gastrique</option>
-                    <option value="Kids">*For Kids* - Veggies and dip, chicken tenders</option>
+                    <option value="Kids">*For Kids* - Veggies & Dip, Chicken Tenders</option>
                 </select>
             </div>
         `;
