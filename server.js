@@ -68,3 +68,9 @@ app.post('/api/rsvp', async (req, res) => {
         }
     });
 });
+
+// Dynamic port configuration for Render and local testing
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
