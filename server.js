@@ -1,3 +1,24 @@
+const express = require('express');
+const nodemailer = require('nodemailer');
+const cors = require('cors');
+require('dotenv').config();
+
+const app = express();
+
+// Middleware
+app.use(express.json());
+app.use(cors());
+
+// Configure your Nodemailer transporter using your Gmail App Password
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
+
+// RSVP Endpoint
 app.post('/api/rsvp', async (req, res) => {
     const { email, primaryName, attending, comments } = req.body;
     
