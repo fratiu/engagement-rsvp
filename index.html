@@ -28,59 +28,71 @@
 
             <form id="rsvpForm">
 
-                <div class="form-group">
-                    <label for="primaryName">Full Name *</label>
-                    <input type="text" id="primaryName" name="primaryName" placeholder="Your full name" required>
+                <!-- STEP 1: The Email Gate -->
+                <div id="emailStep" class="form-group">
+                    <label for="guestEmail">Email Address *</label>
+                    <input style="margin-bottom: 10px;" type="text" id="guestEmail" name="email" placeholder="Enter your email to begin" required>
+                    <button type="button" id="continueBtn" class="primary-button">Continue to RSVP</button>
                 </div>
 
-                <div class="form-group">
-                    <label for="attending">Can you attend? *</label>
-                    <select id="attending" name="attending" required>
-                        <option value="">Please select...</option>
-                        <option value="Yes">Yes, I'll be there</option>
-                        <option value="No">Sorry, can't make it</option>
-                    </select>
-                </div>
-
-                <div id="attendingDetails" class="hidden">
+                <!-- STEP 2: The Main Form (Initially Hidden) -->
+                <div id="mainFormStep" class="hidden">
                     <div class="form-group">
-                        <label for="primaryEntree">Please select your entree *</label>
-                        <select id="primaryEntree" name="primaryEntree" class="entree-select">
-                            <option value="">Choose a meal...</option>
-                            <option value="Chicken">Spiced Chicken Breast - Cumin & Coriander Dry Cure, Heirloom
-                                Carrots, Confit Fingerling Potatoes, Rich Chicken Jus</option>
-                            <option value="Salmon">Atlantic Salmon - Crispy Skin Roasted, Yucca & Broccolini Summer
-                                Hash, Coconut Mustard Sauce</option>
-                            <option value="Vegetarian">*Vegetarian Option* - Crispy Potato Rosti - Curried Potato Cream,
-                                Eggplant & Pepper Caponata, Balsamic & Grenadine Gastrique</option>
-                            <option value="Kids">*For Kids* - Veggies & Dip, Chicken Tenders</option>
+                        <label for="primaryName">Full Name *</label>
+                        <input type="text" id="primaryName" name="primaryName" placeholder="Your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attending">Can you attend? *</label>
+                        <select id="attending" name="attending" required>
+                            <option value="">Please select...</option>
+                            <option value="Yes">Yes, I'll be there</option>
+                            <option value="No">Sorry, can't make it</option>
                         </select>
                     </div>
-                    <div class="guests-section">
-                        <h3>Additional Guests</h3>
-                        <p class="guest-subtitle">Please add the full names of everyone coming with you and select their
-                            entrees.</p>
 
-                        <div id="guestList">
-                            <!-- Dynamically added guests will appear here -->
+                    <div id="attendingDetails" class="hidden">
+                        <div class="form-group">
+                            <label for="primaryEntree">Please select your entree *</label>
+                            <select id="primaryEntree" name="primaryEntree" class="entree-select">
+                                <option value="">Choose a meal...</option>
+                                <option value="Chicken">Spiced Chicken Breast - Cumin & Coriander Dry Cure, Heirloom
+                                    Carrots, Confit Fingerling Potatoes, Rich Chicken Jus</option>
+                                <option value="Salmon">Atlantic Salmon - Crispy Skin Roasted, Yucca & Broccolini Summer
+                                    Hash, Coconut Mustard Sauce</option>
+                                <option value="Vegetarian">*Vegetarian Option* - Crispy Potato Rosti - Curried Potato
+                                    Cream,
+                                    Eggplant & Pepper Caponata, Balsamic & Grenadine Gastrique</option>
+                                <option value="Kids">*For Kids* - Veggies & Dip, Chicken Tenders</option>
+                            </select>
                         </div>
+                        <div class="guests-section">
+                            <h3>Additional Guests</h3>
+                            <p class="guest-subtitle">Please add the full names of everyone coming with you and select
+                                their
+                                entrees.</p>
 
-                        <button type="button" id="addGuestBtn" class="secondary-button">+ Add a Person</button>
+                            <div id="guestList">
+                                <!-- Dynamically added guests will appear here -->
+                            </div>
+
+                            <button type="button" id="addGuestBtn" class="secondary-button">+ Add a Person</button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="comments">Comments and/or questions?</label>
-                    <textarea id="comments" name="comments" rows="3"
-                        placeholder="Leave a note for us here..."></textarea>
-                    <!-- Contact info moved to the bottom -->
-                    <div class="small-contact">
-                        <p style="margin-top: 8px;">Need to reach us directly? Text Filip (226-792-7905) or Ada
-                            (226-751-5369).</p>
+                    <div class="form-group">
+                        <label for="comments">Comments and/or questions?</label>
+                        <textarea id="comments" name="comments" rows="3"
+                            placeholder="Leave a note for us here..."></textarea>
+                        <!-- Contact info moved to the bottom -->
+                        <div class="small-contact">
+                            <p >Need to reach us directly? Text Filip (226-792-7905) or Ada
+                                (226-751-5369).</p>
+                        </div>
                     </div>
-                </div>
 
-                <button type="submit" class="primary-button">Submit RSVP</button>
+                    <button type="submit" class="primary-button">Submit RSVP</button>
+                </div>
             </form>
 
             <div id="successMessage" class="hidden">
@@ -96,8 +108,7 @@
 
                     <div class="map-wrapper">
                         <!-- Your custom map image -->
-                        <img src="map.png" alt="Tapestry Hall Parking Map"
-                            class="parking-map">
+                        <img src="map.png" alt="Tapestry Hall Parking Map" class="parking-map">
 
                         <!-- The Legend -->
                         <div class="map-legend">

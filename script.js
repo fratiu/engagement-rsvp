@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const emailStep = document.getElementById('emailStep');
+    const mainFormStep = document.getElementById('mainFormStep');
+    const continueBtn = document.getElementById('continueBtn');
+    const emailInput = document.getElementById('guestEmail');
     const form = document.getElementById('rsvpForm');
     const attendingSelect = document.getElementById('attending');
     const attendingDetails = document.getElementById('attendingDetails');
@@ -8,6 +12,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const successMessage = document.getElementById('successMessage');
 
     let guestCount = 0;
+
+
+    // --- NEW: Step 1 to Step 2 Transition ---
+    continueBtn.addEventListener('click', () => {
+        // Check if the email is valid before letting them proceed
+        if (emailInput.checkValidity() && emailInput.value.trim() !== '') {
+            emailStep.classList.add('hidden');
+            mainFormStep.classList.remove('hidden');
+        } else {
+            // Triggers the browser's built-in "Please enter a valid email" warning
+            emailInput.reportValidity();
+        }
+    });
 
     // 1. Logic to show/hide the details based on attendance
     attendingSelect.addEventListener('change', function () {
@@ -76,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Build the payload
         const rsvpData = {
+            email: document.getElementById('guestEmail').value,
             timestamp: new Date().toLocaleString(),
             primaryName: formData.get('primaryName'),
             attending: formData.get('attending'),
@@ -94,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Flatten the guests array into a single string for the Excel cell
         rsvpData.guestsString = rsvpData.guests.length > 0 ? rsvpData.guests.join(', ') : 'None';
 
-        const webhookURL = 'https://hook.us2.make.com/7vpctcbnrcxwloabqjvrbqee1vq4brnk';
+        const webhookURL = 'http://localhost:3001/api/rsvp';
 
         fetch(webhookURL, {
             method: 'POST',
