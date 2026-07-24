@@ -1,55 +1,38 @@
-const express = require('express');
 const nodemailer = require('nodemailer');
-const cors = require('cors');
-require('dotenv').config();
 
-const app = express();
+module.exports = async (req, res) => {
+    // Enable CORS for your GitHub Pages frontend
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Origin', 'https://fratiu.github.io');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
 
-// Middleware with explicit CORS configuration for GitHub Pages
-const corsOptions = {
-    origin: 'https://fratiu.github.io',
-    methods: ['POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type'],
-    optionsSuccessStatus: 200
-};
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
+    }
 
-app.use(cors(corsOptions));
-app.use(express.json());
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
 
-// Explicitly handle preflight requests for the route
-app.options('/api/rsvp', cors(corsOptions));
-
-// Configure your Nodemailer transporter using your Gmail App Password
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-    tls: {
-        rejectUnauthorized: false
-    },
-    // Force IPv4 to bypass Render's IPv6 networking block
-    socketTimeout: 10000,
-    connectionTimeout: 10000,
-    family: 4 
-});
-
-// RSVP Endpoint
-app.post('/api/rsvp', async (req, res) => {
     const { email, primaryName, attending, comments } = req.body;
-    
-    // HTML email design
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+
     const htmlDesign = `
     <!DOCTYPE html>
     <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+    <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
     <body style="font-family: 'Georgia', serif; background-color: #faf9f6; margin: 0; padding: 20px;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 40px; border-radius: 8px; border-top: 6px solid #9ca986; text-align: center;">
             <h1 style="color: #4a5d23; font-size: 24px; margin-top: 0; margin-bottom: 20px;">We've Received Your RSVP!</h1>
@@ -71,47 +54,28 @@ app.post('/api/rsvp', async (req, res) => {
     </body>
     </html>
     `;
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: "We've Received Your RSVP!",
-        html: htmlDesign
-    };
 
-    // 2. Fire the email using Nodemailer
-    transporter.sendMail(mailOptions, async (error, info) => {
-        if (error) {
-            console.error('Email error:', error);
-            return res.status(500).send("Error sending email");
+    try {
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: "We've Received Your RSVP!",
+            html: htmlDesign
+        });
+
+        const makeResponse = await fetch('https://hook.us2.make.com/7vpctcbnrcxwloabqjvrbqee1vq4brnk', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(req.body)
+        });
+
+        if (!makeResponse.ok) {
+            throw new Error('Failed to reach Make.com');
         }
 
-        // 3. Once the email is sent, forward the data to Make.com for Excel
-        try {
-            const makeResponse = await fetch('https://hook.us2.make.com/7vpctcbnrcxwloabqjvrbqee1vq4brnk', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                // Forward the exact payload you received from React
-                body: JSON.stringify(req.body)
-            });
-
-            if (!makeResponse.ok) {
-                throw new Error('Failed to reach Make.com');
-            }
-
-            // 4. Tell React everything worked perfectly
-            res.status(200).send("RSVP logged to Excel and email sent successfully!");
-
-        } catch (makeError) {
-            console.error('Make.com error:', makeError);
-            res.status(500).send("Email sent, but failed to log to Excel");
-        }
-    });
-});
-
-// Dynamic port configuration for Render and local testing
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+        return res.status(200).send("RSVP logged and email sent successfully!");
+    } catch (error) {
+        console.error('Server error:', error);
+        return res.status(500).send("Error processing RSVP");
+    }
+};
