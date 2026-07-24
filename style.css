@@ -1,6 +1,6 @@
 :root {
     --sage-green: #d3dfc1;
-    --dark-green: #4a5d38;
+    --dark-green: #495c38;
     --soft-pink: #eebfbf;
     --off-white: #faf9f6;
     --border-color: #d1d5db;
@@ -234,13 +234,96 @@ button {
     display: none !important;
 }
 
+/* Removes the green background from the main container */
 #successMessage {
-    margin-top: 20px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Creates a focused, compact green box just for the Thank You text */
+.success-box {
     padding: 20px;
     background-color: var(--sage-green);
     color: var(--dark-green);
     border-radius: 6px;
-    text-align: center;
-    font-weight: bold;
     border: 1px solid var(--dark-green);
+    margin-bottom: 30px;
+}
+
+.success-box h3 {
+    margin: 0 0 0 0;
+}
+
+.success-box p {
+    font-weight: normal;
+    margin: 0;
+}
+
+/* Styles the logistics text to match your form's footer */
+.logistics-box {
+    color: #555;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.logistics-box p {
+    margin: 5px 0;
+}
+
+.map-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #faf9f6; 
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.parking-map {
+    width: 100%;
+    max-width: 400px; /* Allows the map to be significantly larger and easier to read */
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 18px; /* Adds clean breathing room before the legend starts */
+}
+
+.map-legend {
+    display: flex;
+    flex-direction: column; /* Reverts to a clean vertical list */
+    gap: 10px;
+    width: 100%;
+    max-width: 320px; /* Constrains the width so the list looks perfectly centered under the map */
+}
+
+.legend-item {
+    display: flex;
+    align-items: flex-start; 
+    gap: 12px;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.4;
+}
+
+/* Base style for the little red circles/stars */
+.legend-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px; 
+    height: 20px;
+    border-radius: 50%;
+    background-color: #c02626; 
+    color: white;
+    font-weight: bold;
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: -1px; /* Perfectly aligns the icon with the first line of text */
+}
+
+.legend-icon.star {
+    font-size: 12px;
+    padding-bottom: 1px; 
 }

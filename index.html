@@ -1,85 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filip & Ada's Engagement</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="rsvp-container">
         <div class="image-container">
             <img src="couple_photo.jpeg" alt="Engagement Photo" class="engagement-photo">
         </div>
         <div class="form-container">
-            
+
             <!-- Simplified Header Section -->
             <div class="minimal-header">
                 <h1>We're Engaged!</h1>
-                <!-- <p class="subtitle">Engagement Celebration</p> -->
-                
+
                 <div class="quick-info">
                     <p><strong>October 25, 2026</strong> • Tapestry Hall - 74 Grand Ave S, Cambridge</p>
-                    <p class="highlight-deadline">Kindly RSVP by September 13, 2026</p>
+                    <p id="deadlineText" class="highlight-deadline">Kindly RSVP by September 13, 2026</p>
                 </div>
+
             </div>
-            
+
             <form id="rsvpForm">
 
                 <div class="form-group">
                     <label for="primaryName">Full Name *</label>
                     <input type="text" id="primaryName" name="primaryName" placeholder="Your full name" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="attending">Can you attend? *</label>
                     <select id="attending" name="attending" required>
                         <option value="">Please select...</option>
-                        <option value="Yes">Yes,  I'll be there</option>
+                        <option value="Yes">Yes, I'll be there</option>
                         <option value="No">Sorry, can't make it</option>
                     </select>
                 </div>
-                
+
                 <div id="attendingDetails" class="hidden">
                     <div class="form-group">
                         <label for="primaryEntree">Please select your entree *</label>
                         <select id="primaryEntree" name="primaryEntree" class="entree-select">
                             <option value="">Choose a meal...</option>
-                            <option value="Chicken">Spiced Chicken Breast - Cumin & Coriander Dry Cure, Heirloom Carrots, Confit Fingerling Potatoes, Rich Chicken Jus</option>
-                            <option value="Salmon">Atlantic Salmon - Crispy Skin Roasted, Yucca & Broccolini Summer Hash, Coconut Mustard Sauce</option>
-                            <option value="Vegetarian">*Vegetarian Option* - Crispy Potato Rosti - Curried Potato Cream, Eggplant & Pepper Caponata, Balsamic & Grenadine Gastrique</option>
+                            <option value="Chicken">Spiced Chicken Breast - Cumin & Coriander Dry Cure, Heirloom
+                                Carrots, Confit Fingerling Potatoes, Rich Chicken Jus</option>
+                            <option value="Salmon">Atlantic Salmon - Crispy Skin Roasted, Yucca & Broccolini Summer
+                                Hash, Coconut Mustard Sauce</option>
+                            <option value="Vegetarian">*Vegetarian Option* - Crispy Potato Rosti - Curried Potato Cream,
+                                Eggplant & Pepper Caponata, Balsamic & Grenadine Gastrique</option>
                             <option value="Kids">*For Kids* - Veggies & Dip, Chicken Tenders</option>
                         </select>
                     </div>
                     <div class="guests-section">
                         <h3>Additional Guests</h3>
-                        <p class="guest-subtitle">Please add the full names of everyone coming with you and select their entrees.</p>
-                        
+                        <p class="guest-subtitle">Please add the full names of everyone coming with you and select their
+                            entrees.</p>
+
                         <div id="guestList">
                             <!-- Dynamically added guests will appear here -->
                         </div>
-                        
+
                         <button type="button" id="addGuestBtn" class="secondary-button">+ Add a Person</button>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="comments">Comments and/or questions?</label>
-                    <textarea id="comments" name="comments" rows="3" placeholder="Leave a note for us here..."></textarea>
+                    <textarea id="comments" name="comments" rows="3"
+                        placeholder="Leave a note for us here..."></textarea>
                     <!-- Contact info moved to the bottom -->
-                    <p class="small-contact">
-                        Need to reach us directly? Text Filip (226-792-7905) or Ada (226-751-5369).
-                    </p>
+                    <div class="small-contact">
+                        <p style="margin-top: 8px;">Need to reach us directly? Text Filip (226-792-7905) or Ada
+                            (226-751-5369).</p>
+                    </div>
                 </div>
-                
+
                 <button type="submit" class="primary-button">Submit RSVP</button>
             </form>
-            
+
             <div id="successMessage" class="hidden">
-                Thank you! Your RSVP has been received.
+                <!-- The green confirmation box -->
+                <div class="success-box">
+                    <h3>Thank you! Your RSVP has been received.</h3>
+                </div>
+
+                <!-- The airy, white background logistics section -->
+                <div class="logistics-box">
+                    <h4 style="margin-top: 0; margin-bottom: 15px; color: var(--dark-green);">Location & Parking Map
+                    </h4>
+
+                    <div class="map-wrapper">
+                        <!-- Your custom map image -->
+                        <img src="map.png" alt="Tapestry Hall Parking Map"
+                            class="parking-map">
+
+                        <!-- The Legend -->
+                        <div class="map-legend">
+                            <div class="legend-item">
+                                <span class="legend-icon star">★</span>
+                                <span><strong>Tapestry Hall</strong> (Venue)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon number">1</span>
+                                <span>Free Parking Garage (Grand Ave S)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon number">2</span>
+                                <span>Free Parking Lot (Fraser St)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon number">3</span>
+                                <span>Free Parking Lot (Cedar St)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="small-contact" style="margin-top: 20px;">Need to reach us directly?<br>Text Filip
+                        (226-792-7905) or Ada (226-751-5369).</p>
+                </div>
             </div>
         </div>
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
