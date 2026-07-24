@@ -5,9 +5,19 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
+// Middleware with explicit CORS configuration for GitHub Pages
+const corsOptions = {
+    origin: 'https://fratiu.github.io',
+    methods: ['POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cors());
+
+// Explicitly handle preflight requests for the route
+app.options('/api/rsvp', cors(corsOptions));
 
 // Configure your Nodemailer transporter using your Gmail App Password
 const transporter = nodemailer.createTransport({
