@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Flatten the guests array into a single string for the Excel cell
         rsvpData.guestsString = rsvpData.guests.length > 0 ? rsvpData.guests.join(', ') : 'None';
 
-        const webhookURL = 'http://localhost:3001/api/rsvp';
+        const webhookURL = 'https://engagement-rsvp.onrender.com';
 
         fetch(webhookURL, {
             method: 'POST',
