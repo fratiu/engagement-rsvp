@@ -112,7 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Flatten the guests array into a single string for the Excel cell
         rsvpData.guestsString = rsvpData.guests.length > 0 ? rsvpData.guests.join(', ') : 'None';
 
-        const webhookURL = 'https://engagement-rsvp-lac.vercel.app/api/rsvp';
+        // const webhookURL = 'https://hook.us2.make.com/7vpctcbnrcxwloabqjvrbqee1vq4brnk';
+        const webhookURL = '/api/rsvp';
 
         fetch(webhookURL, {
             method: 'POST',
