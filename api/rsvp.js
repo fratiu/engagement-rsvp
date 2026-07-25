@@ -85,7 +85,8 @@ module.exports = async (req, res) => {
             from: process.env.EMAIL_USER,
             to: email,
             subject: "We've Received Your RSVP!",
-            html: htmlDesign
+            html: htmlDesign,
+            priority: 'high'
         });
 
         const makeResponse = await fetch('https://hook.us2.make.com/7vpctcbnrcxwloabqjvrbqee1vq4brnk', {
