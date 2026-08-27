@@ -29,8 +29,13 @@ module.exports = async (req, res) => {
         }
     });
 
-    const htmlDesign = `
-    <!DOCTYPE html>
+    let emailSubject = "";
+    let htmlDesign = "";
+
+    if (attending === "Yes") {
+        emailSubject = "We've Received Your RSVP!";
+        htmlDesign = `
+        <!DOCTYPE html>
     <html lang="en">
     <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
     <body style="font-family: 'Georgia', serif; background-color: #faf9f6; margin: 0; padding: 20px;">
@@ -79,6 +84,29 @@ module.exports = async (req, res) => {
     </body>
     </html>
     `;
+    } else {
+        emailSubject = "RSVP Received - You'll be missed!";
+        htmlDesign = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: 'Georgia', serif; background-color: #faf9f6; margin: 0; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 40px; border-radius: 8px; border-top: 6px solid #9ca986; text-align: center;">
+                <h1 style="color: #4a5d23; font-size: 24px; margin-top: 0; margin-bottom: 20px;">We've Received Your RSVP</h1>
+                                
+                <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #555555; margin: 0 0 15px 0;">Thank you for letting us know! We're sorry to hear you won't be able to make it to our engagement celebration, but we completely understand.</p>
+                
+                <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #555555; margin: 0 0 15px 0;">We hope to catch up and see you another time soon!</p>
+                
+                <div style="margin-top: 30px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; color: #888888; border-top: 1px solid #eeeeee; padding-top: 20px;">
+                    With love,<br>Filip & Ada
+                </div>
+            </div>
+        </body>
+        </html>
+        `;
+    }
+
 
     try {
         await transporter.sendMail({
@@ -87,7 +115,7 @@ module.exports = async (req, res) => {
                 address: process.env.EMAIL_USER
             },
             to: email,
-            subject: "We've Received Your RSVP!",
+            subject: emailSubject,
             html: htmlDesign,
             priority: 'high'
         });

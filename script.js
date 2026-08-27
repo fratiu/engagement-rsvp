@@ -113,7 +113,10 @@ document.addEventListener("DOMContentLoaded", () => {
         rsvpData.guestsString = rsvpData.guests.length > 0 ? rsvpData.guests.join(', ') : 'None';
 
         // const webhookURL = 'https://hook.us2.make.com/7vpctcbnrcxwloabqjvrbqee1vq4brnk';
+        // Production server
         const webhookURL = 'https://engagement-rsvp-lac.vercel.app/api/rsvp';
+        // Local testing server
+        const localWebhookURL = 'http://localhost:3000/api/rsvp';
 
         fetch(webhookURL, {
             method: 'POST',
